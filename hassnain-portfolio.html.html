@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hassnain — Digital Marketing Consultant</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Bricolage+Grotesque:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & VARIABLES ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg:       #080909;
+  --bg2:      #0f1010;
+  --bg3:      #161818;
+  --bord:     #1e2020;
+  --bord2:    #282a2a;
+  --txt:      #e8e4dc;
+  --txt2:     #9a9890;
+  --txt3:     #5a5856;
+  --lime:     #c8ff00;
+  --orange:   #ff5c2a;
+  --blue:     #3d8bff;
+  --teal:     #00d4aa;
+  --gold:     #f5c842;
+  --red:      #ff3b3b;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor {
+  width: 12px; height: 12px;
+  background: var(--lime);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .2s, height .2s, background .2s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--lime);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform .08s ease, width .2s, height .2s, opacity .2s;
+  opacity: 0.5;
+}
+body:hover .cursor { opacity:1; }
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:9990; opacity:.4;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  padding: 20px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s, background .3s, backdrop-filter .3s;
+}
+nav.scrolled {
+  border-color: var(--bord);
+  background: rgba(8,9,9,.85);
+  backdrop-filter: blur(18px);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: var(--txt);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--lime); }
+.nav-links { display:flex; gap:36px; list-style:none; }
+.nav-links a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--txt3);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--lime); }
+.nav-cta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--lime);
+  padding: 9px 20px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+.nav-cta:hover { opacity:.85; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated background grid */
+.hero-grid {
+  position: absolute; inset:0;
+  background-image:
+    linear-gradient(var(--bord) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bord) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 80%);
+  opacity: .4;
+}
+
+/* Glowing orbs */
+.orb {
+  position:absolute; border-radius:50%;
+  filter: blur(80px); pointer-events:none;
+}
+.orb-1 { width:600px; height:600px; background:rgba(200,255,0,.06); top:-200px; right:-100px; animation: drift1 12s ease-in-out infinite; }
+.orb-2 { width:400px; height:400px; background:rgba(255,92,42,.05); bottom:-100px; left:-100px; animation: drift2 15s ease-in-out infinite; }
+.orb-3 { width:300px; height:300px; background:rgba(61,139,255,.05); top:40%; left:40%; animation: drift3 18s ease-in-out infinite; }
+
+@keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-60px,40px)} }
+@keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,-50px)} }
+@keyframes drift3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(30px,-30px)} 66%{transform:translate(-30px,30px)} }
+
+.hero-content { position:relative; z-index:2; max-width:900px; }
+
+.hero-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--lime);
+  display: flex; align-items:center; gap:12px;
+  margin-bottom: 28px;
+  opacity:0; transform:translateY(20px);
+  animation: reveal .7s .1s ease forwards;
+}
+.hero-eyebrow::before {
+  content:'';
+  display:inline-block; width:40px; height:1px;
+  background: var(--lime);
+}
+
+.hero-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 11vw, 148px);
+  line-height: .88;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+  opacity:0; transform:translateY(30px);
+  animation: reveal .8s .2s ease forwards;
+}
+.hero-h1 .italic {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  color: var(--lime);
+}
+.hero-h1 .outline {
+  -webkit-text-stroke: 2px var(--txt);
+  color: transparent;
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--txt2);
+  line-height: 1.65;
+  max-width: 560px;
+  margin: 28px 0 44px;
+  opacity:0; transform:translateY(20px);
+  animation: reveal .7s .4s ease forwards;
+}
+.hero-sub strong { color:var(--txt); }
+
+.hero-actions {
+  display:flex; gap:16px; flex-wrap:wrap;
+  opacity:0; transform:translateY(20px);
+  animation: reveal .7s .55s ease forwards;
+}
+.btn-primary {
+  background: var(--lime);
+  color: #000;
+  padding: 14px 32px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: opacity .2s, transform .2s;
+  display:inline-block;
+}
+.btn-primary:hover { opacity:.88; transform:translateY(-2px); }
+.btn-outline {
+  border: 1px solid var(--bord2);
+  color: var(--txt2);
+  padding: 14px 32px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: border-color .2s, color .2s, transform .2s;
+  display:inline-block;
+}
+.btn-outline:hover { border-color:var(--lime); color:var(--lime); transform:translateY(-2px); }
+
+/* Floating stat cards */
+.hero-stats {
+  position:absolute; right:48px; top:50%; transform:translateY(-50%);
+  display:flex; flex-direction:column; gap:14px;
+  opacity:0; animation: reveal .8s .7s ease forwards;
+}
+.stat-card {
+  background: var(--bg2);
+  border: 1px solid var(--bord);
+  border-radius: 8px;
+  padding: 18px 22px;
+  min-width: 190px;
+  position:relative; overflow:hidden;
+}
+.stat-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0;
+  height:2px;
+}
+.stat-card.lime::before { background:var(--lime); }
+.stat-card.orange::before { background:var(--orange); }
+.stat-card.blue::before { background:var(--blue); }
+.stat-card.teal::before { background:var(--teal); }
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-card.lime .stat-num  { color:var(--lime); }
+.stat-card.orange .stat-num{ color:var(--orange); }
+.stat-card.blue .stat-num  { color:var(--blue); }
+.stat-card.teal .stat-num  { color:var(--teal); }
+.stat-lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--txt3);
+}
+
+.scroll-hint {
+  position:absolute; bottom:40px; left:48px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--txt3);
+  display:flex; align-items:center; gap:12px;
+  opacity:0; animation:reveal .7s 1s ease forwards;
+}
+.scroll-hint::after {
+  content:'';
+  display:inline-block; width:1px; height:40px;
+  background:var(--bord2);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine { 0%,100%{height:40px;opacity:.4} 50%{height:60px;opacity:1} }
+
+/* ── TICKER ── */
+.ticker-wrap {
+  border-top:1px solid var(--bord);
+  border-bottom:1px solid var(--bord);
+  background:var(--bg2);
+  overflow:hidden; padding:14px 0;
+}
+.ticker-track {
+  display:flex; gap:0;
+  animation: ticker 22s linear infinite;
+  white-space:nowrap;
+}
+.ticker-item {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--txt3);
+  padding:0 36px;
+  display:flex; align-items:center; gap:16px;
+}
+.ticker-item span { color:var(--lime); font-weight:600; }
+.ticker-dot { width:4px; height:4px; border-radius:50%; background:var(--bord2); }
+@keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ── SECTION SHARED ── */
+section { padding: 120px 48px; }
+.section-label {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--lime);
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:20px;
+}
+.section-label::before { content:''; display:inline-block; width:30px; height:1px; background:var(--lime); }
+.section-h {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(48px,7vw,88px);
+  line-height:.9;
+  margin-bottom:20px;
+}
+.section-h em { font-family:'Instrument Serif',serif; font-style:italic; color:var(--lime); }
+
+/* ── ABOUT ── */
+.about { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+.about-left {}
+.about-p {
+  font-size:17px; line-height:1.8; color:var(--txt2);
+  margin-bottom:20px;
+}
+.about-p strong { color:var(--txt); }
+.about-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:32px; }
+.tag {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px; letter-spacing:1.5px; text-transform:uppercase;
+  padding:7px 14px; border-radius:2px; border:1px solid;
+}
+.tag-lime { color:var(--lime); border-color:rgba(200,255,0,.2); background:rgba(200,255,0,.05); }
+.tag-orange { color:var(--orange); border-color:rgba(255,92,42,.2); background:rgba(255,92,42,.05); }
+.tag-blue { color:var(--blue); border-color:rgba(61,139,255,.2); background:rgba(61,139,255,.05); }
+.tag-teal { color:var(--teal); border-color:rgba(0,212,170,.2); background:rgba(0,212,170,.05); }
+
+.about-right { display:flex; flex-direction:column; gap:18px; }
+.about-stat-big {
+  background:var(--bg2); border:1px solid var(--bord);
+  border-radius:10px; padding:28px;
+  position:relative; overflow:hidden;
+}
+.about-stat-big::after {
+  content:''; position:absolute; bottom:0; right:0;
+  width:120px; height:120px;
+  border-radius:50%;
+  filter:blur(50px);
+}
+.about-stat-big.as-lime::after { background:rgba(200,255,0,.08); }
+.about-stat-big.as-orange::after { background:rgba(255,92,42,.08); }
+.asb-num {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:72px; line-height:1;
+  margin-bottom:4px;
+}
+.as-lime .asb-num { color:var(--lime); }
+.as-orange .asb-num { color:var(--orange); }
+.asb-label { font-size:14px; color:var(--txt2); line-height:1.5; }
+.asb-label strong { color:var(--txt); display:block; }
+
+/* ── SERVICES ── */
+.services-section { background:var(--bg2); border-top:1px solid var(--bord); border-bottom:1px solid var(--bord); }
+.services-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1px; background:var(--bord); margin-top:60px; }
+.svc-card {
+  background:var(--bg2);
+  padding:40px 36px;
+  position:relative; overflow:hidden;
+  transition:background .25s;
+}
+.svc-card:hover { background:var(--bg3); }
+.svc-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .35s ease;
+}
+.svc-card:hover::before { transform:scaleX(1); }
+.svc-card.sc-lime::before { background:var(--lime); }
+.svc-card.sc-orange::before { background:var(--orange); }
+.svc-card.sc-blue::before { background:var(--blue); }
+.svc-card.sc-teal::before { background:var(--teal); }
+.svc-card.sc-gold::before { background:var(--gold); }
+.svc-card.sc-red::before { background:var(--red); }
+
+.svc-icon {
+  width:52px; height:52px;
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px; margin-bottom:24px;
+}
+.si-lime { background:rgba(200,255,0,.1); }
+.si-orange { background:rgba(255,92,42,.1); }
+.si-blue { background:rgba(61,139,255,.1); }
+.si-teal { background:rgba(0,212,170,.1); }
+.si-gold { background:rgba(245,200,66,.1); }
+.si-red { background:rgba(255,59,59,.1); }
+
+.svc-name {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:26px; letter-spacing:1px;
+  margin-bottom:10px;
+}
+.svc-desc { font-size:14px; color:var(--txt2); line-height:1.7; margin-bottom:20px; }
+.svc-items { list-style:none; display:flex; flex-direction:column; gap:6px; }
+.svc-items li {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px; letter-spacing:1px;
+  color:var(--txt3);
+  display:flex; align-items:center; gap:8px;
+}
+.svc-items li::before {
+  content:'→'; font-size:10px;
+}
+.sc-lime .svc-items li::before { color:var(--lime); }
+.sc-orange .svc-items li::before { color:var(--orange); }
+.sc-blue .svc-items li::before { color:var(--blue); }
+.sc-teal .svc-items li::before { color:var(--teal); }
+.sc-gold .svc-items li::before { color:var(--gold); }
+.sc-red .svc-items li::before { color:var(--red); }
+
+/* ── CASE STUDIES ── */
+.cases-grid { display:flex; flex-direction:column; gap:2px; margin-top:60px; }
+.case-row {
+  display:grid; grid-template-columns:1fr 2fr 1fr 1fr;
+  gap:0; background:var(--bord);
+}
+.case-row > div {
+  background:var(--bg);
+  padding:28px 32px;
+  transition:background .2s;
+}
+.case-row:hover > div { background:var(--bg2); }
+.case-num {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:13px; letter-spacing:3px;
+  color:var(--txt3); margin-bottom:10px;
+}
+.case-title { font-size:16px; font-weight:600; color:var(--txt); line-height:1.4; }
+.case-tag {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px; letter-spacing:2px; text-transform:uppercase;
+  padding:5px 10px; border-radius:2px;
+  display:inline-block; margin-top:10px;
+}
+.ct-lime { background:rgba(200,255,0,.1); color:var(--lime); }
+.ct-orange { background:rgba(255,92,42,.1); color:var(--orange); }
+.ct-blue { background:rgba(61,139,255,.1); color:var(--blue); }
+.ct-teal { background:rgba(0,212,170,.1); color:var(--teal); }
+.case-result-num {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:48px; line-height:1;
+}
+.case-result-lbl {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--txt3); margin-top:4px;
+}
+.cr-lime { color:var(--lime); }
+.cr-orange { color:var(--orange); }
+.cr-blue { color:var(--blue); }
+.cr-teal { color:var(--teal); }
+.case-desc { font-size:13px; color:var(--txt2); line-height:1.65; }
+.case-market { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--txt3); letter-spacing:1px; margin-top:6px; }
+
+/* ── PROCESS ── */
+.process-section { background:var(--bg); }
+.process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--bord); margin-top:60px; }
+.ps {
+  background:var(--bg);
+  padding:36px 28px;
+  position:relative;
+}
+.ps-num {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:80px; line-height:.85;
+  color:rgba(255,255,255,.03);
+  position:absolute; top:20px; right:20px;
+}
+.ps-icon { font-size:28px; margin-bottom:20px; }
+.ps-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px; letter-spacing:1px;
+  margin-bottom:10px;
+}
+.ps-desc { font-size:13px; color:var(--txt2); line-height:1.65; }
+
+/* ── TESTIMONIALS ── */
+.testimonials-section { background:var(--bg2); border-top:1px solid var(--bord); }
+.testi-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; margin-top:60px; }
+.testi-card {
+  background:var(--bg);
+  border:1px solid var(--bord);
+  border-radius:10px; padding:32px;
+  position:relative;
+}
+.testi-quote {
+  font-family:'Instrument Serif',serif;
+  font-style:italic;
+  font-size:18px; line-height:1.7;
+  color:var(--txt);
+  margin-bottom:24px;
+}
+.testi-quote::before {
+  content:'"';
+  font-family:'Bebas Neue',sans-serif;
+  font-size:80px; line-height:.7;
+  display:block; margin-bottom:8px;
+}
+.tq-lime::before { color:var(--lime); }
+.tq-orange::before { color:var(--orange); }
+.tq-blue::before { color:var(--blue); }
+.testi-author { display:flex; align-items:center; gap:14px; }
+.testi-avatar {
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif; font-size:18px;
+}
+.ta-lime { background:rgba(200,255,0,.12); color:var(--lime); }
+.ta-orange { background:rgba(255,92,42,.12); color:var(--orange); }
+.ta-blue { background:rgba(61,139,255,.12); color:var(--blue); }
+.testi-name { font-size:14px; font-weight:600; color:var(--txt); }
+.testi-role { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:var(--txt3); margin-top:2px; }
+.testi-stars { color:var(--gold); font-size:13px; margin-left:auto; }
+
+/* ── SKILLS BARS ── */
+.skills-section {}
+.skills-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-top:60px; align-items:start; }
+.skill-item { margin-bottom:28px; }
+.skill-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+.skill-name { font-size:15px; font-weight:600; color:var(--txt); }
+.skill-pct { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--txt3); }
+.skill-bar { height:4px; background:var(--bord2); border-radius:2px; overflow:hidden; }
+.skill-fill {
+  height:100%; border-radius:2px;
+  transform:scaleX(0); transform-origin:left;
+  transition:transform 1.4s cubic-bezier(.16,1,.3,1);
+}
+.skill-fill.animated { transform:scaleX(1); }
+.sf-lime { background:var(--lime); }
+.sf-orange { background:var(--orange); }
+.sf-blue { background:var(--blue); }
+.sf-teal { background:var(--teal); }
+
+.tools-grid { display:flex; flex-wrap:wrap; gap:10px; margin-top:40px; }
+.tool-pill {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px; letter-spacing:1.5px; text-transform:uppercase;
+  padding:8px 16px; border-radius:2px;
+  background:var(--bg2); border:1px solid var(--bord);
+  color:var(--txt2);
+  transition:border-color .2s, color .2s;
+}
+.tool-pill:hover { border-color:var(--lime); color:var(--lime); }
+
+/* ── CTA SECTION ── */
+.cta-section {
+  text-align:center;
+  background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(200,255,0,.04) 0%, transparent 70%);
+  border-top:1px solid var(--bord);
+  padding:140px 48px;
+}
+.cta-section .section-label { justify-content:center; }
+.cta-section .section-label::before { display:none; }
+.cta-h {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,9vw,120px);
+  line-height:.88;
+  margin-bottom:28px;
+}
+.cta-h em { font-family:'Instrument Serif',serif; font-style:italic; color:var(--lime); }
+.cta-p { font-size:17px; color:var(--txt2); max-width:520px; margin:0 auto 44px; line-height:1.7; }
+.cta-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.cta-contact {
+  display:flex; gap:24px; justify-content:center; flex-wrap:wrap;
+  margin-top:40px;
+}
+.contact-pill {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px; letter-spacing:1.5px;
+  color:var(--txt3);
+  display:flex; align-items:center; gap:10px;
+  text-decoration:none;
+  transition:color .2s;
+}
+.contact-pill:hover { color:var(--lime); }
+.contact-pill span { font-size:16px; }
+
+/* ── FOOTER ── */
+footer {
+  background:var(--bg2);
+  border-top:1px solid var(--bord);
+  padding:32px 48px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.footer-copy {
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px; letter-spacing:1.5px;
+  color:var(--txt3);
+}
+.footer-copy strong { color:var(--lime); }
+.footer-made { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--txt3); letter-spacing:1px; }
+
+/* ── ANIMATIONS ── */
+@keyframes reveal { to { opacity:1; transform:translateY(0); } }
+
+.reveal { opacity:0; transform:translateY(30px); transition:opacity .8s ease, transform .8s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width:900px) {
+  nav { padding:18px 20px; }
+  .nav-links { display:none; }
+  .hero { padding:100px 20px 40px; flex-direction:column; }
+  .hero-stats { position:static; transform:none; flex-direction:row; flex-wrap:wrap; margin-top:40px; }
+  section { padding:80px 20px; }
+  .about { grid-template-columns:1fr; gap:40px; }
+  .case-row { grid-template-columns:1fr 1fr; }
+  .process-steps { grid-template-columns:1fr 1fr; }
+  .skills-grid { grid-template-columns:1fr; }
+  footer { flex-direction:column; gap:12px; text-align:center; }
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">H<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Results</a></li>
+    <li><a href="#skills">Skills</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Digital Marketing Consultant · Pakistan → Worldwide</div>
+    <h1 class="hero-h1">
+      <span class="outline">Hassnain</span><br>
+      <span class="italic">Grows</span><br>
+      Businesses
+    </h1>
+    <p class="hero-sub">
+      <strong>SEO Specialist. SEM Expert. Link Builder.</strong><br>
+      Helping businesses in the US, UK &amp; Canada rank on Page 1, cut ad costs, and build digital authority that compounds for years.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book Free Audit</a>
+      <a href="#work" class="btn-outline">See Results</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-card lime">
+      <div class="stat-num" data-count="20">0</div>
+      <div class="stat-lbl">Clients Ranked</div>
+    </div>
+    <div class="stat-card orange">
+      <div class="stat-num" data-count="4">0</div>
+      <div class="stat-lbl">Years Experience</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-num" data-suffix="%">64</div>
+      <div class="stat-lbl">Avg CPA Reduction</div>
+    </div>
+    <div class="stat-card teal">
+      <div class="stat-num" data-suffix="%">100</div>
+      <div class="stat-lbl">White-Hat Only</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="ticker-item"><span>SEO</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item">Google Ads<div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Link Building</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item">Local SEO<div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Blogger Outreach</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item">Technical SEO<div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>SEM</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item">Content Strategy<div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Page 1 Rankings</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item">Digital Strategy<div class="ticker-dot"></div></div>
+    <!-- Repeat for seamless loop -->
+    <div class="ticker-item"><span>SEO</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item">Google Ads<div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Link Building</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item">Local SEO<div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Blogger Outreach</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item">Technical SEO<div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>SEM</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item">Content Strategy<div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Page 1 Rankings</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item">Digital Strategy<div class="ticker-dot"></div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label reveal">About</div>
+  <div class="about">
+    <div class="about-left reveal">
+      <h2 class="section-h">The Story<br>Behind The <em>Results</em></h2>
+      <p class="about-p">In 2022, I sent my first outreach email. No strategy. No credibility. Just ambition. The reply rate was exactly <strong>zero</strong>.</p>
+      <p class="about-p">Four years and <strong>20+ clients</strong> later — I have ranked websites in the most competitive niches in the US and UK, managed six-figure ad budgets, and built thousands of white-hat backlinks that still deliver traffic today.</p>
+      <p class="about-p">I do not sell vanity metrics. I build <strong>organic visibility</strong> that compounds, <strong>paid campaigns</strong> that convert, and <strong>link profiles</strong> that actually move rankings.</p>
+      <div class="about-tags">
+        <span class="tag tag-lime">SEO Specialist</span>
+        <span class="tag tag-orange">Google Ads Expert</span>
+        <span class="tag tag-blue">Link Building</span>
+        <span class="tag tag-teal">Local SEO</span>
+        <span class="tag tag-lime">Blogger Outreach</span>
+        <span class="tag tag-orange">Technical SEO</span>
+      </div>
+    </div>
+    <div class="about-right reveal">
+      <div class="about-stat-big as-lime">
+        <div class="asb-num">20+</div>
+        <div class="asb-label"><strong>Clients on Page 1</strong>Businesses across the US, UK, Canada, and beyond ranked in competitive niches.</div>
+      </div>
+      <div class="about-stat-big as-orange">
+        <div class="asb-num">2022</div>
+        <div class="asb-label"><strong>Started From Zero</strong>No clients. No portfolio. No safety net. Just a commitment to figure it out.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label reveal">What I Do</div>
+    <h2 class="section-h reveal">Services That<br>Actually <em>Move</em> Rankings</h2>
+    <div class="services-grid reveal">
+      <div class="svc-card sc-lime">
+        <div class="svc-icon si-lime">🔍</div>
+        <div class="svc-name">SEO Strategy</div>
+        <div class="svc-desc">Full-service organic search — from technical foundation to content strategy and ranking campaigns built for compound growth.</div>
+        <ul class="svc-items">
+          <li>Technical SEO Audits</li>
+          <li>Keyword Research & Mapping</li>
+          <li>On-Page Optimisation</li>
+          <li>Content Strategy</li>
+        </ul>
+      </div>
+      <div class="svc-card sc-orange">
+        <div class="svc-icon si-orange">📈</div>
+        <div class="svc-name">Google Ads</div>
+        <div class="svc-desc">Campaign setup, audit, and ongoing management focused on reducing cost per lead and scaling what is already converting.</div>
+        <ul class="svc-items">
+          <li>Google Ads Audit</li>
+          <li>Campaign Setup & Structure</li>
+          <li>Conversion Rate Optimisation</li>
+          <li>Remarketing Campaigns</li>
+        </ul>
+      </div>
+      <div class="svc-card sc-blue">
+        <div class="svc-icon si-blue">🔗</div>
+        <div class="svc-name">Link Building</div>
+        <div class="svc-desc">Manual, white-hat link acquisition through guest posting, resource outreach, broken link building, and digital PR.</div>
+        <ul class="svc-items">
+          <li>Guest Post Outreach</li>
+          <li>Broken Link Building</li>
+          <li>Resource Page Links</li>
+          <li>Unlinked Brand Mentions</li>
+        </ul>
+      </div>
+      <div class="svc-card sc-teal">
+        <div class="svc-icon si-teal">📍</div>
+        <div class="svc-name">Local SEO</div>
+        <div class="svc-desc">Google Business Profile optimisation, citation building, and LocalBusiness schema for businesses targeting US and UK markets.</div>
+        <ul class="svc-items">
+          <li>Google Business Profile</li>
+          <li>Citation Building</li>
+          <li>Local Schema Markup</li>
+          <li>Review Strategy</li>
+        </ul>
+      </div>
+      <div class="svc-card sc-gold">
+        <div class="svc-icon si-gold">✍️</div>
+        <div class="svc-name">Blogger Outreach</div>
+        <div class="svc-desc">End-to-end outreach campaigns that secure placements on real, relevant blogs with genuine audiences and domain authority.</div>
+        <ul class="svc-items">
+          <li>Niche-Relevant Outreach</li>
+          <li>Content Placement</li>
+          <li>DR 40+ Targets</li>
+          <li>Full Campaign Reporting</li>
+        </ul>
+      </div>
+      <div class="svc-card sc-red">
+        <div class="svc-icon si-red">🗺️</div>
+        <div class="svc-name">Digital Strategy</div>
+        <div class="svc-desc">For businesses that need a complete plan — not just one channel. Full-funnel strategy across SEO, SEM, content and email.</div>
+        <ul class="svc-items">
+          <li>90-Day Marketing Plan</li>
+          <li>Multi-Channel Strategy</li>
+          <li>KPI Framework</li>
+          <li>Monthly Reporting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="work" style="padding:120px 0;">
+  <div style="padding:0 48px;max-width:1200px;margin:0 auto;">
+    <div class="section-label reveal">Results</div>
+    <h2 class="section-h reveal">Real Numbers.<br>Real <em>Clients.</em></h2>
+  </div>
+  <div class="cases-grid reveal" style="margin-top:60px;">
+    <div class="case-row">
+      <div>
+        <div class="case-num">01</div>
+        <div class="case-title">Personal Finance Blog</div>
+        <span class="case-tag ct-lime">SEO</span>
+      </div>
+      <div>
+        <div class="case-desc">Brand new website in a competitive US niche. Built technical foundation, targeted low-competition keywords, and executed a systematic guest post campaign over 8 months.</div>
+        <div class="case-market">🇺🇸 US Market · Finance Niche</div>
+      </div>
+      <div>
+        <div class="case-result-num cr-lime">4,200</div>
+        <div class="case-result-lbl">Organic Visitors/Mo</div>
+      </div>
+      <div>
+        <div class="case-result-num cr-lime">34</div>
+        <div class="case-result-lbl">Keywords Page 1</div>
+      </div>
+    </div>
+    <div class="case-row">
+      <div>
+        <div class="case-num">02</div>
+        <div class="case-title">B2B Software Company</div>
+        <span class="case-tag ct-orange">Google Ads</span>
+      </div>
+      <div>
+        <div class="case-desc">Rebuilt an underperforming Google Ads account — new keyword strategy, dedicated landing pages, conversion tracking, and ad scheduling. Same budget. Dramatically better results.</div>
+        <div class="case-market">🇬🇧 UK Market · B2B SaaS</div>
+      </div>
+      <div>
+        <div class="case-result-num cr-orange">£87→£31</div>
+        <div class="case-result-lbl">Cost Per Lead</div>
+      </div>
+      <div>
+        <div class="case-result-num cr-orange">64%</div>
+        <div class="case-result-lbl">CPA Reduction</div>
+      </div>
+    </div>
+    <div class="case-row">
+      <div>
+        <div class="case-num">03</div>
+        <div class="case-title">Handmade Jewellery Brand</div>
+        <span class="case-tag ct-blue">SEO + SEM</span>
+      </div>
+      <div>
+        <div class="case-desc">Combined SEO and Google Ads strategy for a new UK e-commerce brand. Google Ads funded immediate sales while SEO built organic revenue over 6 months.</div>
+        <div class="case-market">🇬🇧 UK Market · E-Commerce</div>
+      </div>
+      <div>
+        <div class="case-result-num cr-blue">£6,200</div>
+        <div class="case-result-lbl">Organic Revenue/Mo</div>
+      </div>
+      <div>
+        <div class="case-result-num cr-blue">6.2x</div>
+        <div class="case-result-lbl">Google Ads ROAS</div>
+      </div>
+    </div>
+    <div class="case-row">
+      <div>
+        <div class="case-num">04</div>
+        <div class="case-title">Local Services Business</div>
+        <span class="case-tag ct-teal">Local SEO</span>
+      </div>
+      <div>
+        <div class="case-desc">Optimised Google Business Profile, built 80+ local citations, and implemented LocalBusiness schema. Moved from invisible to top 3 local pack in 4 months.</div>
+        <div class="case-market">🇺🇸 US Market · Local Services</div>
+      </div>
+      <div>
+        <div class="case-result-num cr-teal">#1</div>
+        <div class="case-result-lbl">Local Pack Ranking</div>
+      </div>
+      <div>
+        <div class="case-result-num cr-teal">3x</div>
+        <div class="case-result-lbl">Enquiries Increase</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section" style="background:var(--bg2);border-top:1px solid var(--bord);border-bottom:1px solid var(--bord);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label reveal">How It Works</div>
+    <h2 class="section-h reveal">The Process<br>Behind Every <em>Win</em></h2>
+    <div class="process-steps reveal">
+      <div class="ps">
+        <div class="ps-num">01</div>
+        <div class="ps-icon">🔬</div>
+        <div class="ps-title">Discovery & Audit</div>
+        <div class="ps-desc">Deep-dive into your current performance, competitors, and biggest opportunities. Technical audit + keyword landscape + backlink gap analysis.</div>
+      </div>
+      <div class="ps">
+        <div class="ps-num">02</div>
+        <div class="ps-icon">🗺️</div>
+        <div class="ps-title">Strategy Build</div>
+        <div class="ps-desc">A 90-day roadmap with clear priorities, expected timelines, and measurable targets. No vague promises — only specific, trackable outcomes.</div>
+      </div>
+      <div class="ps">
+        <div class="ps-num">03</div>
+        <div class="ps-icon">⚙️</div>
+        <div class="ps-title">Execution</div>
+        <div class="ps-desc">Technical fixes, content creation, link outreach, and campaign management. Every deliverable on time, every action documented.</div>
+      </div>
+      <div class="ps">
+        <div class="ps-num">04</div>
+        <div class="ps-icon">📊</div>
+        <div class="ps-title">Report & Scale</div>
+        <div class="ps-desc">Monthly reporting with full transparency. What moved, what did not, and what is next. Double down on what works, cut what does not.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-label reveal">Expertise</div>
+  <h2 class="section-h reveal">Skills &amp; <em>Tools</em></h2>
+  <div class="skills-grid reveal">
+    <div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Technical SEO</span><span class="skill-pct">95%</span></div>
+        <div class="skill-bar"><div class="skill-fill sf-lime" style="--w:0.95"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Link Building & Outreach</span><span class="skill-pct">93%</span></div>
+        <div class="skill-bar"><div class="skill-fill sf-orange" style="--w:0.93"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Google Ads / SEM</span><span class="skill-pct">88%</span></div>
+        <div class="skill-bar"><div class="skill-fill sf-blue" style="--w:0.88"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">On-Page SEO</span><span class="skill-pct">96%</span></div>
+        <div class="skill-bar"><div class="skill-fill sf-teal" style="--w:0.96"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Local SEO</span><span class="skill-pct">90%</span></div>
+        <div class="skill-bar"><div class="skill-fill sf-lime" style="--w:0.90"></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Keyword Research</span><span class="skill-pct">97%</span></div>
+        <div class="skill-bar"><div class="skill-fill sf-orange" style="--w:0.97"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Content Strategy</span><span class="skill-pct">85%</span></div>
+        <div class="skill-bar"><div class="skill-fill sf-blue" style="--w:0.85"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Analytics & Reporting</span><span class="skill-pct">92%</span></div>
+        <div class="skill-bar"><div class="skill-fill sf-teal" style="--w:0.92"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Digital Strategy</span><span class="skill-pct">87%</span></div>
+        <div class="skill-bar"><div class="skill-fill sf-lime" style="--w:0.87"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Email Marketing</span><span class="skill-pct">80%</span></div>
+        <div class="skill-bar"><div class="skill-fill sf-orange" style="--w:0.80"></div></div>
+      </div>
+      <div style="margin-top:36px;">
+        <div class="section-label" style="margin-bottom:16px;">Tools</div>
+        <div class="tools-grid">
+          <span class="tool-pill">Ahrefs</span>
+          <span class="tool-pill">SEMrush</span>
+          <span class="tool-pill">Google Search Console</span>
+          <span class="tool-pill">Google Analytics 4</span>
+          <span class="tool-pill">Google Ads</span>
+          <span class="tool-pill">Screaming Frog</span>
+          <span class="tool-pill">Moz</span>
+          <span class="tool-pill">Majestic</span>
+          <span class="tool-pill">Hunter.io</span>
+          <span class="tool-pill">Pitchbox</span>
+          <span class="tool-pill">GTmetrix</span>
+          <span class="tool-pill">Tag Manager</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label reveal">What Clients Say</div>
+    <h2 class="section-h reveal">The Work<br>Speaks For <em>Itself</em></h2>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="testi-quote tq-lime">He moved us from Page 3 to Position 2 in a competitive UK niche. Organic traffic tripled in six months. I have worked with three agencies before — this was different.</div>
+        <div class="testi-author">
+          <div class="testi-avatar ta-lime">JM</div>
+          <div>
+            <div class="testi-name">James M.</div>
+            <div class="testi-role">E-Commerce Founder · UK</div>
+          </div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote tq-orange">Our Google Ads cost per lead dropped from £87 to £31 in 90 days. Same budget. He rebuilt the entire account from scratch and the results were immediate.</div>
+        <div class="testi-author">
+          <div class="testi-avatar ta-orange">SR</div>
+          <div>
+            <div class="testi-name">Sarah R.</div>
+            <div class="testi-role">SaaS Founder · UK</div>
+          </div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote tq-blue">Full transparency, consistent communication, and results that match exactly what was promised. Rare to find in this industry. Already referred two colleagues.</div>
+        <div class="testi-author">
+          <div class="testi-avatar ta-blue">DL</div>
+          <div>
+            <div class="testi-name">David L.</div>
+            <div class="testi-role">Agency Owner · USA</div>
+          </div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="section-label">Available for New Projects</div>
+  <h2 class="cta-h">Let's <em>Grow</em><br>Your Business</h2>
+  <p class="cta-p">Start with a free 15-minute audit. I will identify your biggest SEO or Ads opportunity — no pitch, no pressure, just honest clarity.</p>
+  <div class="cta-actions">
+    <a href="mailto:divid181@gmail.com" class="btn-primary">Book Free Audit →</a>
+    <a href="https://www.linkedin.com/in/hassnain-seo/" class="btn-outline" target="_blank">Connect on LinkedIn</a>
+  </div>
+  <div class="cta-contact">
+    <a href="mailto:divid181@gmail.com" class="contact-pill"><span>✉</span> divid181@gmail.com</a>
+    <a href="https://www.linkedin.com/in/hassnain-seo/" class="contact-pill" target="_blank"><span>💼</span> linkedin.com/in/hassnain-seo/</a>
+    <span class="contact-pill"><span>📍</span> Pakistan · Available Globally</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 <strong>Hassnain</strong> · Digital Marketing Consultant</div>
+  <div class="footer-made">SEO · SEM · Link Building · Since 2022</div>
+</footer>
+
+<script>
+// ── CURSOR ──
+const cur = document.getElementById('cur');
+const ring = document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button,.svc-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';ring.style.width='60px';ring.style.height='60px';ring.style.opacity='.8';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px';ring.style.opacity='.5';});
+});
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>60);
+});
+
+// ── REVEAL ON SCROLL ──
+const revEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      e.target.style.transitionDelay = (i%4)*0.08+'s';
+      e.target.classList.add('visible');
+    }
+  });
+},{threshold:0.1});
+revEls.forEach(el=>obs.observe(el));
+
+// ── SKILL BARS ANIMATE ──
+const skillObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.skill-fill').forEach(bar=>{
+        bar.style.transform = 'scaleX('+bar.style.getPropertyValue('--w')+')';
+        bar.classList.add('animated');
+      });
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.skills-grid').forEach(el=>skillObs.observe(el));
+
+// ── COUNT-UP ANIMATION ──
+function countUp(el, target, suffix=''){
+  let start=0, duration=2000, startTime=null;
+  function step(ts){
+    if(!startTime) startTime=ts;
+    const prog=Math.min((ts-startTime)/duration,1);
+    const ease=1-Math.pow(1-prog,4);
+    el.textContent=Math.floor(ease*target)+(prog===1?suffix+(suffix?'':'+'):'');
+    if(prog<1) requestAnimationFrame(step);
+    else el.textContent=target+suffix+(suffix?'':target<100?'+':'%');
+  }
+  requestAnimationFrame(step);
+}
+const statObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;
+      const count=parseInt(el.datas
